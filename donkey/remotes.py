@@ -382,7 +382,7 @@ class ControlAPI(tornado.web.RequestHandler):
         elif V['drive_mode'] == 'auto':
             angle, throttle  = V['pilot_angle'], V['pilot_throttle']
 
-        print('\r REMOTE: angle: {:+04.2f}   throttle: {:+04.2f}   drive_mode: {}'.format(angle, throttle, V['drive_mode']), end='')
+        print('\n REMOTE: angle: {:+04.2f}   throttle: {:+04.2f}   drive_mode: {}'.format(angle, throttle, V['drive_mode']), end='')
 
 
         if V['recording'] == True:
@@ -414,6 +414,8 @@ class VideoAPI(tornado.web.RequestHandler):
             
             interval = .2
             if self.served_image_timestamp + interval < time.time():
+                print('\n application.vehicles={}'.format(self.application.vehicles))
+                print('\n vehicle_id={}'.format(vehicle_id))
 
 
                 img = self.application.vehicles[vehicle_id]['img']
