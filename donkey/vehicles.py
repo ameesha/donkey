@@ -54,6 +54,8 @@ class BaseVehicle:
                 angle, _ = self.pilot.decide(img_arr)
 
             elif drive_mode == 'platoon':
+                # do some open cv stuff here
+                print('\n img_arr={}'.format(img_arr))
                 angle = 0.5
                 throttle = 0
 
