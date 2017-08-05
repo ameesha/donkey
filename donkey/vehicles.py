@@ -5,6 +5,7 @@ Class to pull together all parts that operate the vehicle including,
 sensors, actuators, pilots and remotes.
 '''
 
+from random import uniform
 import time
 
 from donkey.actuators import PWMSteeringActuator
@@ -55,7 +56,7 @@ class BaseVehicle:
 
             # do some open cv stuff here
             print('\n img_arr={}'.format(img_arr))
-            angle = random.random()
+            angle = uniform(-1, 1)
             throttle = 0
 
             self.actuator_mixer.update(throttle, angle)
