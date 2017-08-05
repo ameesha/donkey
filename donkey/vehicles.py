@@ -46,18 +46,17 @@ class BaseVehicle:
 
             angle, throttle, drive_mode = self.remote.decide_threaded(img_arr, angle, throttle, milliseconds)
 
-            if drive_mode == 'local':
-                angle, throttle = self.pilot.decide(img_arr)
+            # if drive_mode == 'local':
+            #     angle, throttle = self.pilot.decide(img_arr)
 
-            elif drive_mode == 'local_angle':
-                # only update angle from local pilot
-                angle, _ = self.pilot.decide(img_arr)
+            # elif drive_mode == 'local_angle':
+            #     # only update angle from local pilot
+            #     angle, _ = self.pilot.decide(img_arr)
 
-            elif drive_mode == 'platoon':
-                # do some open cv stuff here
-                print('\n img_arr={}'.format(img_arr))
-                angle = 0.5
-                throttle = 0
+            # do some open cv stuff here
+            print('\n img_arr={}'.format(img_arr))
+            angle = random.random()
+            throttle = 0
 
             self.actuator_mixer.update(throttle, angle)
 
