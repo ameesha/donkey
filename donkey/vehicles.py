@@ -56,10 +56,10 @@ class BaseVehicle:
 
             # do some open cv stuff here
             print('\n img_arr={}'.format(img_arr))
-            # angle = uniform(-1, 1)
-            angle = 0
+            angle = uniform(-1, 1)
+            # angle = 0
             throttle = 0
-            print('\n len(img_arr)={}, len(img_arr[0])'.format(len(img_arr), len(img_arr[0])))
+            print('\n len(img_arr)={}, len(img_arr[0])={}'.format(len(img_arr), len(img_arr[0])))
 
             self.actuator_mixer.update(throttle, angle)
 

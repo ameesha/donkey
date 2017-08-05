@@ -145,7 +145,6 @@ class RemoteClient():
         lag = end-start
         self.log('{}, {} \n'.format(datetime.now().time() , lag ))
         #print('remote lag: %s' %lag)
-        print('\n decide')
 
         data = json.loads(r.text)
         angle = float(data['angle'])
