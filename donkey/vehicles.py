@@ -53,12 +53,15 @@ class BaseVehicle:
                 # only update angle from local pilot
                 angle, _ = self.pilot.decide(img_arr)
 
+            elif drive_mode == 'platoon':
+                angle = 0.5
+                throttle = 0
+
             self.actuator_mixer.update(throttle, angle)
 
             # print current car state
             end = time.time()
             lag = end - start
-            print('\n{}'.format(self.remote))
             print('\n CAR: angle: {:+04.2f}   throttle: {:+04.2f}   drive_mode: {}  lag: {:+04.2f}'.format(
                 angle, throttle, drive_mode, lag), end='')
             
