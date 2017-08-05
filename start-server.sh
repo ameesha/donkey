@@ -13,6 +13,12 @@ if [ $HASVOL == 0 ]; then
     docker volume create --name mydonkey
 fi
 
+HASVOL2=$( docker volume ls | grep donkey | wc -l )
+if [ $HASVOL == 0 ]; then
+	echo "start-server: Initializing Donkey code volume..." >&2
+    docker volume create --name donkey
+fi
+
 # Build if not already built
 HASIMAGE=$( docker image ls | grep donkey | wc -l )
 if [ $HASIMAGE == 0 ]; then
@@ -29,6 +35,10 @@ while getopts ":vbd" opt; do
 			echo "start-server: Initializing Donkey server volume..." >&2
 			docker volume create --name mydonkey
 		fi
+		if [ $HASVOL2 == 1 ]; then #means the volume existed, so it was not built
+			echo "start-server: Initializing Donkey code volume..." >&2
+			docker volume create --name donkey
+		fi
 		;;
     b)
 		if [ $HASIMAGE == 1 ]; then #means the image existed, so it was not built
@@ -38,7 +48,7 @@ while getopts ":vbd" opt; do
 		;;
     d)
 		echo "start-server: Running Donkey server container without serve.py and attaching..." >&2
-		docker run -p 8887:8887 -v ~/mydonkey:/root/mydonkey --entrypoint=/bin/bash -it donkey
+		docker run -p 8887:8887 -v ~/mydonkey:/root/mydonkey -v ~/donkey:/donkey --entrypoint=/bin/bash -it donkey
 		exit
 		;;
     \?)
@@ -49,4 +59,4 @@ while getopts ":vbd" opt; do
 done
 
 echo "start-server: Running Donkey server container..." >&2
-docker run -p 8887:8887 -v ~/mydonkey:/root/mydonkey donkey
+docker run -p 8887:8887 -v ~/mydonkey:/root/mydonkey -v ~/donkey:/donkey donkey
