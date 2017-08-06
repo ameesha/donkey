@@ -90,6 +90,7 @@ class BaseVehicle:
             cx,cy = int(M['m10']/M['m00']), int(M['m01']/M['m00'])
             cv2.circle(blur,(cx,cy),10,(0,0,255),-1)
 
+            # Note: using blob here
             angle = ((640 - cx) / 640 * 2) - 1
 
             # throttle
@@ -99,7 +100,13 @@ class BaseVehicle:
                 center = (int(x), int(y))
                 radius = int(radius)
                 cv2.circle(thresh2, center, radius, (0, 0, 255), 2)
-                print('hello{}{}'.format(center, radius))
+
+                # Note: Using circle here
+                # If it's too small don't follow
+                # If it's too big don't follow
+                # Otherwise map to between 0.3 and 0.5 throttle
+                if radius > 10 and radius < 110:
+                    throttle = 0.3 + (0.2 * ((radius - 10) / 100))
 
             self.actuator_mixer.update(throttle, angle)
             print('\n CAR: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
