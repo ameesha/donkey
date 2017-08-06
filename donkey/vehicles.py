@@ -63,9 +63,11 @@ class ImageProcessingThread:
         self.actuator_mixer = actuator_mixer
 
     def start(self, image):
-        t = Thread(target=self.calculate_throttle_and_angle(image), args=())
-        t.start()
-        return
+        # t = Thread(target=self.calculate_throttle_and_angle(image), args=())
+        # t.start()
+        # return
+        self.calculate_throttle_and_angle(image)
+
 
     def calculate_throttle_and_angle(self, image):
         blur = cv2.blur(image, (Constants.blur_anchor_x, Constants.blur_anchor_y))
@@ -156,4 +158,3 @@ class BaseVehicle:
         while(True):
             print('\n Main process loop')
             self.image_processing.start(self.camera.read())
-            time.sleep(0.01)
