@@ -75,7 +75,7 @@ class BaseVehicle:
         while(True):
             self.calculate_throttle_and_angle(self.camera.read())
             print('\n processing')
-            sleep(0.05)
+            time.sleep(0.05)
 
     # def capture_frame(self):
     #     # capture frames from the camera
