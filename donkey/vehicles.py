@@ -101,7 +101,7 @@ class BaseVehicle:
             angle = ((640 - cx) / 640 * 2) - 1
 
             # throttle
-            if best_cnt != 1:
+            if max_area > 0:
                 (x, y), radius = cv2.minEnclosingCircle(best_cnt)
                 center = (int(x), int(y))
                 radius = int(radius)
