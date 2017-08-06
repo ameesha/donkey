@@ -1,6 +1,6 @@
 class Constants:
-    res_length=680
-    res_width=480
+    res_length=68
+    res_width=48
     frame_rate=50
     drive_loop_delay=0.5
     min_radius=30
