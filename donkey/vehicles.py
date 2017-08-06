@@ -59,8 +59,8 @@ class CameraStream:
         return self.frame
 
 class ImageProcessingThread:
-    def __init__(self):
-        pass
+    def __init__(self, actuator_mixer):
+        self.actuator_mixer = actuator_mixer
 
     def start(self, image):
         t = Thread(target=self.calculate_throttle_and_angle(image), args=())
@@ -148,7 +148,7 @@ class BaseVehicle:
         # these need to be updated when vehicle is defined
         self.actuator_mixer = actuator_mixer
         self.camera = CameraStream()
-        self.image_processing = ImageProcessingThread()
+        self.image_processing = ImageProcessingThread(self.actuator_mixer)
 
     def start(self):
         self.camera.start()
