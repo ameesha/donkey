@@ -55,7 +55,7 @@ if __name__ == '__main__':
     mymixer = dk.mixers.AckermannSteeringMixer(mysteering, mythrottle)
 
     #asych img capture from picamera
-    mycamera = dk.sensors.PiVideoStream()
+    # mycamera = dk.sensors.PiVideoStream()
 
     #setup the remote host
     myremote = dk.remotes.RemoteClient(remote_url, vehicle_id=cfg['vehicle_id'])
@@ -66,7 +66,6 @@ if __name__ == '__main__':
 
     #Create your car
     car = dk.vehicles.BaseVehicle(drive_loop_delay=cfg['vehicle_loop_delay'],
-                                  camera=mycamera,
                                   actuator_mixer=mymixer,
                                   remote=myremote,
                                   pilot=mypilot)
