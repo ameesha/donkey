@@ -100,12 +100,16 @@ class BaseVehicle:
 
             angle = ((640 - cx) / 640 * 2) - 1
 
+            # throttle
+            ellipse = cv2.fitEllipse(best_cnt)
+            cv2.ellipse(thresh2, ellipse, (0, 255, 0), 2)
+
             cv2.imshow("Frame", blur)
             cv2.imshow('thresh', thresh2)
 
             self.actuator_mixer.update(throttle, angle)
-            print('\n CAR: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
-                cx, cy, max_area, angle, throttle), end='')
+            print('\n CAR: cx: {}, cy: {}, ellipse: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
+                cx, cy, ellipse, max_area, angle, throttle), end='')
         
         # drive loop
         # while True:
