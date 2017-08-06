@@ -8,5 +8,5 @@ class Constants:
     min_throttle=0.3
     max_throttle=0.4
     angle_blob=640
-    blur_anchor_x=5
-    blur_anchor_y=5
+    blur_anchor_x=3
+    blur_anchor_y=3
