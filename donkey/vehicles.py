@@ -41,20 +41,22 @@ class BaseVehicle:
         self.actuator_mixer = actuator_mixer
 
     def start(self):
-        start_time = time.time()
-        angle = 0.
-        throttle = 0.
-
         self.capture_frame()
 
     def capture_frame(self):
         # capture frames from the camera
+        start_time = time.time()
+        count = 0
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-            print('\n got frame')
+            count += 1
+            now = time.time()
+            millis = int((now - self.start_time) * 1000)
+
+            print('\n got frame, fps={}', count/millis)
             image = frame.array
-            t = Thread(self.calculate_throttle_and_angle(image), args=())
-            t.daemon = True
-            t.start()
+            # t = Thread(self.calculate_throttle_and_angle(image), args=())
+            # t.daemon = True
+            # t.start()
 
             # clear the stream in preparation for the next frame
             rawCapture.truncate(0)
