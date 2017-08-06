@@ -91,17 +91,21 @@ class BaseVehicle:
             #if best_cnt>1:
             cv2.circle(blur,(cx,cy),10,(0,0,255),-1)
             # show the frame
-            cv2.imshow("Frame", blur)
-            cv2.imshow('thresh', thresh2)
             key = cv2.waitKey(1) & 0xFF
     
             # clear the stream in preparation for the next frame
             rawCapture.truncate(0)
             angle = 0
             throttle = 0
+
             angle = ((640 - cx) / 640 * 2) - 1
-            # throttle = uniform(-1, 1)
-            # print('\n len(img_arr)={}, len(img_arr[0])={}'.format(len(img_arr), len(img_arr[0])))
+
+            # fit ellipse for throttle
+            ellipse = cv2.fitEllipse(best_cnt)
+            cv2.ellipse(thresh2, ellipse, (0, 255, 0), 2)
+
+            cv2.imshow("Frame", blur)
+            cv2.imshow('thresh', thresh2)
 
             self.actuator_mixer.update(throttle, angle)
             print('\n CAR: cx: {}, cy: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
