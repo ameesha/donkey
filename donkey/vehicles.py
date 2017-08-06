@@ -37,7 +37,7 @@ class CameraStream:
         time.sleep(0.1)
     
     def start(self):
-        t = Thread(target=self.update, args=()).start()
+        t = Thread(target=self.update, args=())
         t.daemon = True
         t.start()
         return self
@@ -70,6 +70,7 @@ class BaseVehicle:
         self.process()
 
     def process(self):
+        print('\n process')
         while(True):
             self.calculate_throttle_and_angle(self.camera.read())
             print('\n processing')
