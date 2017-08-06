@@ -44,7 +44,7 @@ class CameraStream:
         # capture frames from the camera
         start_time = time.time()
         count = 0
-        for frame in self.camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+        for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
             count += 1
             now = time.time()
             elapsed_ms = int((now - start_time) * 1000)
