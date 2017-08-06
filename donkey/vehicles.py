@@ -13,6 +13,8 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 from random import uniform
 
+import configparser
+
 from donkey.actuators import PWMSteeringActuator
 from donkey.pilots import KerasCategorical
 from donkey.remotes import RemoteClient
