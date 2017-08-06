@@ -72,7 +72,7 @@ class BaseVehicle:
         blur = cv2.blur(image, (constants.getint('blur_anchor_x'),constants.getint('blur_anchor_y')))
             
         #pink
-        lower = np.array([100, 30, 160],dtype="uint8")
+        lower = np.array([50, 20, 90],dtype="uint8")
         upper = np.array([165, 88, 225], dtype="uint8")
 
         thresh = cv2.inRange(blur, lower, upper)
