@@ -94,7 +94,8 @@ class BaseVehicle:
             angle = ((640 - cx) / 640 * 2) - 1
 
             # throttle
-            throttle = 0
+            # breaks faster (even tho it can't go backwards)
+            throttle = -1
             if max_area > 0:
                 (x, y), radius = cv2.minEnclosingCircle(best_cnt)
                 center = (int(x), int(y))
@@ -105,8 +106,8 @@ class BaseVehicle:
                 # If it's too small don't follow
                 # If it's too big don't follow
                 # Otherwise map to between 0.2 and 0.4 throttle
-                if radius > 10 and radius < 110:
-                    throttle = 0.4 - (0.2 * ((radius - 10) / 100))
+                if radius > 10 and radius < 50:
+                    throttle = 0.25 - (0.2 * ((radius - 10) / 40))
 
             self.actuator_mixer.update(throttle, angle)
             print('\n CAR: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
