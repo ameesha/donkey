@@ -30,7 +30,7 @@ class CameraStream:
         self.camera.resolution = (Constants.res_length, Constants.res_width)
         self.camera.framerate = Constants.frame_rate
         self.camera.hflip = True
-        self.frame = np.zeros(shape=(self.resolution[1], self.resolution[0], 3))
+        self.frame = np.zeros(shape=(Constants.res_length, Constants.res_width))
 
         self.rawCapture = PiRGBArray(self.camera, size=(Constants.res_length, Constants.res_width))
 
