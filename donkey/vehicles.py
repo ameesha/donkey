@@ -96,7 +96,6 @@ class BaseVehicle:
     #         rawCapture.truncate(0)
 
     def calculate_throttle_and_angle(self, image):
-        print('\n {}', image)
         blur = cv2.blur(image, (Constants.blur_anchor_x, Constants.blur_anchor_y))
             
         # pink
