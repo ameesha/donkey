@@ -38,12 +38,8 @@ time.sleep(0.1)
 
 class BaseVehicle:
     def __init__(self, actuator_mixer: PWMSteeringActuator=None):
-
         # these need to be updated when vehicle is defined
-        self.camera = camera
         self.actuator_mixer = actuator_mixer
-        self.pilot = pilot
-        self.remote = remote
 
     def start(self):
         start_time = time.time()
