@@ -1,5 +1,5 @@
 class Constants:
-    res_length=680
+    res_length=640
     res_width=480
     frame_rate=50
     drive_loop_delay=0.5

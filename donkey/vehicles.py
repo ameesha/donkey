@@ -99,24 +99,24 @@ class BaseVehicle:
         blur = cv2.blur(image, (Constants.blur_anchor_x, Constants.blur_anchor_y))
             
         # pink
-        lower_light = np.array([40, 5, 85],dtype="uint8")
+        lower_light = np.array([40, 5, 85], dtype="uint8")
         upper_light = np.array([70, 35, 115], dtype="uint8")
         thresh_light = cv2.inRange(blur, lower_light, upper_light)
 
-        lower_dark = np.array([0, 0, 35],dtype="uint8")
+        lower_dark = np.array([0, 0, 35], dtype="uint8")
         upper_dark = np.array([10, 10, 70], dtype="uint8")
         thresh_dark = cv2.inRange(blur, lower_dark, upper_dark)
 
-        lower_mid = np.array([10, 0, 60],dtype="uint8")
+        lower_mid = np.array([10, 0, 60], dtype="uint8")
         upper_mid = np.array([60, 30, 90], dtype="uint8")
         thresh_mid = cv2.inRange(blur, lower_mid, upper_mid)
         
-        lower_pink = np.array([75, 25, 145],dtype="uint8")
-        upper_pink = np.array([135,55 , 185], dtype="uint8")
-        thresh_pink = cv2.inRange(blur, lower_pink, upper_pink)
-        thresh_pink
+        # lower_pink = np.array([75, 25, 145], dtype="uint8")
+        # upper_pink = np.array([135, 55, 185], dtype="uint8")
+        # thresh_pink = cv2.inRange(blur, lower_pink, upper_pink)
 
-        thresh = thresh_light + thresh_dark + thresh_mid + thresh_pink
+        # thresh = thresh_light + thresh_dark + thresh_mid + thresh_pink
+        thresh = thresh_light + thresh_dark + thresh_mid
         thresh2 = thresh.copy()
 
         # find contours in the threshold image
