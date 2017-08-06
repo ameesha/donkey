@@ -42,8 +42,7 @@ if __name__ == '__main__':
     mymixer = dk.mixers.AckermannSteeringMixer(mysteering, mythrottle)
 
     #Create your car
-    car = dk.vehicles.BaseVehicle(drive_loop_delay=cfg['vehicle_loop_delay'],
-                                  actuator_mixer=mymixer)
+    car = dk.vehicles.BaseVehicle(actuator_mixer=mymixer)
 
     #Start the drive loop
     car.start()

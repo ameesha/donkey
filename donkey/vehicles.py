@@ -37,14 +37,7 @@ time.sleep(0.1)
 
 
 class BaseVehicle:
-    def __init__(self,
-                 drive_loop_delay: constants.getfloat('driver_loop_delay'),
-                 camera: PiVideoStream=None,
-                 actuator_mixer: PWMSteeringActuator=None,
-                 pilot: KerasCategorical=None,
-                 remote: RemoteClient=None):
-
-        self.drive_loop_delay = drive_loop_delay #how long to wait between loops
+    def __init__(self, actuator_mixer: PWMSteeringActuator=None):
 
         # these need to be updated when vehicle is defined
         self.camera = camera
@@ -71,10 +64,10 @@ class BaseVehicle:
             rawCapture.truncate(0)
 
     def calculate_throttle_and_angle(self, image):
-        blur = cv2.blur(image, (constants.getint('blur_anchor_x'),constants.getint('blur_anchor_y')))
+        blur = cv2.blur(image, (constants.getint('blur_anchor_x'), constants.getint('blur_anchor_y')))
             
-        #pink
-        lower = np.array([50, 20, 90],dtype="uint8")
+        # pink
+        lower = np.array([50, 20, 90], dtype="uint8")
         upper = np.array([165, 88, 225], dtype="uint8")
 
         thresh = cv2.inRange(blur, lower, upper)
