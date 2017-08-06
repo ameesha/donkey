@@ -99,7 +99,7 @@ class BaseVehicle:
             rawCapture.truncate(0)
             angle = 0
             throttle = 0
-            angle = (cx / 640 * 2) - 1
+            angle = ((640 - cx) / 640 * 2) - 1
             # throttle = uniform(-1, 1)
             # print('\n len(img_arr)={}, len(img_arr[0])={}'.format(len(img_arr), len(img_arr[0])))
 
