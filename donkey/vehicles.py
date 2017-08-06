@@ -23,27 +23,24 @@ from threading import Thread
 from constants import Constants
 
 
-# initialize the camera and grab a reference to the raw camera capture
-camera = PiCamera()
-camera.resolution = (Constants.res_length, Constants.res_width)
-camera.framerate = Constants.frame_rate
-camera.hflip = True
+class CameraStream:
+    def __init__(self):
+        # initialize the camera and grab a reference to the raw camera capture
+        self.camera = PiCamera()
+        self.camera.resolution = (Constants.res_length, Constants.res_width)
+        self.camera.framerate = Constants.frame_rate
+        self.camera.hflip = True
 
-rawCapture = PiRGBArray(camera, size=(Constants.res_length, Constants.res_width))
+        self.rawCapture = PiRGBArray(camera, size=(Constants.res_length, Constants.res_width))
 
-# allow the camera to warmup
-time.sleep(0.1)
-
-
-class BaseVehicle:
-    def __init__(self, actuator_mixer: PWMSteeringActuator=None):
-        # these need to be updated when vehicle is defined
-        self.actuator_mixer = actuator_mixer
-
+        # allow the camera to warmup
+        time.sleep(0.1)
+    
     def start(self):
-        self.capture_frame()
+        Thread(target=self.update, args=()).start()
+        return self
 
-    def capture_frame(self):
+    def update(self):
         # capture frames from the camera
         start_time = time.time()
         count = 0
@@ -51,15 +48,41 @@ class BaseVehicle:
             count += 1
             now = time.time()
             elapsed_ms = int((now - start_time) * 1000)
-
             print('\n got frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
-            # image = frame.array
-            # t = Thread(self.calculate_throttle_and_angle(image), args=())
-            # t.daemon = True
-            # t.start()
-
-            # clear the stream in preparation for the next frame
             rawCapture.truncate(0)
+            self.frame = frame.array
+    
+    def read(self):
+        return self.frame
+
+
+class BaseVehicle:
+    def __init__(self, actuator_mixer: PWMSteeringActuator=None):
+        # these need to be updated when vehicle is defined
+        self.actuator_mixer = actuator_mixer
+        self.camera = CameraStream()
+
+    def start(self):
+        # self.capture_frame()
+        self.camera.start()
+
+    # def capture_frame(self):
+    #     # capture frames from the camera
+    #     start_time = time.time()
+    #     count = 0
+    #     for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+    #         count += 1
+    #         now = time.time()
+    #         elapsed_ms = int((now - start_time) * 1000)
+
+    #         print('\n got frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
+    #         # image = frame.array
+    #         # t = Thread(self.calculate_throttle_and_angle(image), args=())
+    #         # t.daemon = True
+    #         # t.start()
+
+    #         # clear the stream in preparation for the next frame
+    #         rawCapture.truncate(0)
 
     def calculate_throttle_and_angle(self, image):
         blur = cv2.blur(image, (Constants.blur_anchor_x, Constants.blur_anchor_y))
