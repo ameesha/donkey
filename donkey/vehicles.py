@@ -48,9 +48,9 @@ class CameraStream:
             count += 1
             now = time.time()
             elapsed_ms = int((now - start_time) * 1000)
-            print('\n got frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
-            self.rawCapture.truncate(0)
             self.frame = frame.array
+            self.rawCapture.truncate(0)
+            print('\n got frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
     
     def read(self):
         return self.frame
@@ -65,6 +65,12 @@ class BaseVehicle:
     def start(self):
         # self.capture_frame()
         self.camera.start()
+        self.process()
+
+    def process(self):
+        while(True):
+            self.calculate_throttle_and_angle(self.camera.read())
+            sleep(0.05)
 
     # def capture_frame(self):
     #     # capture frames from the camera
