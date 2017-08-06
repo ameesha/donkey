@@ -63,7 +63,7 @@ class ImageProcessingThread:
         pass
 
     def start(self, image):
-        t = Thread(target=calculate_throttle_and_angle(image), args=())
+        t = Thread(target=self.calculate_throttle_and_angle(image), args=())
         t.start()
         return
 
