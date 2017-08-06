@@ -108,8 +108,10 @@ class BaseVehicle:
                 # Otherwise map to between 0.2 and 0.4 throttle
                 min_radius = 30
                 max_radius = 80
+                min_throttle = 0.3
+                max_throttle = 0.4
                 if radius > min_radius and radius < max_radius:
-                    throttle = 0.5 - (0.3 * ((radius - min_radius) / (max_radius - min_radius)))
+                    throttle = max_throttle - ((max_throttle - min_throttle) * ((radius - min_radius) / (max_radius - min_radius)))
 
             self.actuator_mixer.update(throttle, angle)
             print('\n CAR: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
