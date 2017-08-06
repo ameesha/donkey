@@ -22,7 +22,7 @@ args = docopt(__doc__)
 if __name__ == '__main__':
 
     # load config file
-    cfg = dk.config.parse_config('~/mydonkey/' + args['--config'] + '.ini')
+    cfg = dk.config.parse_config('~/mydonkey/vehicle.ini')
 
     #load the actuators (default is the adafruit servo hat)
     mythrottlecontroller = dk.actuators.PCA9685_Controller(cfg['throttle_actuator_channel'])
