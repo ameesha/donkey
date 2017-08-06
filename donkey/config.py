@@ -45,7 +45,4 @@ def parse_config(config_path):
     pilot = config['pilot']
     cfg['pilot_model_path'] = os.path.expanduser(pilot.get('model_path'))
 
-    constants = config['constants']
-    cfg['constants'] = constants
-
     return cfg
