@@ -58,7 +58,7 @@ class BaseVehicle:
         # capture frames from the camera
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             image = frame.array
-            t = Thread(self.calculate_throttle_and_angle(), args=(image))
+            t = Thread(self.calculate_throttle_and_angle(image), args=())
             t.daemon = True
             t.start()
 
