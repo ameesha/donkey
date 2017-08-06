@@ -7,15 +7,17 @@ sensors, actuators, pilots and remotes.
 
 import cv2
 import numpy as np
-from random import uniform
 import time
-from picamera.array import PiRGBArray
+
 from picamera import PiCamera
+from picamera.array import PiRGBArray
+from random import uniform
 
 from donkey.actuators import PWMSteeringActuator
 from donkey.pilots import KerasCategorical
 from donkey.remotes import RemoteClient
 from donkey.sensors import PiVideoStream
+from threading import Thread
 
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
