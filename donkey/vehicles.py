@@ -53,10 +53,10 @@ class BaseVehicle:
             elapsed_ms = int((now - start_time) * 1000)
 
             print('\n got frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
-            image = frame.array
-            t = Thread(self.calculate_throttle_and_angle(image), args=())
-            t.daemon = True
-            t.start()
+            # image = frame.array
+            # t = Thread(self.calculate_throttle_and_angle(image), args=())
+            # t.daemon = True
+            # t.start()
 
             # clear the stream in preparation for the next frame
             rawCapture.truncate(0)
