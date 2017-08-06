@@ -52,7 +52,7 @@ class BaseVehicle:
             now = time.time()
             elapsed_ms = int((now - start_time) * 1000)
 
-            print('\n got frame, count={}, elapsed={}, fps={}', count, elapsed, 1000 * count/elapsed_ms)
+            print('\n got frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
             # image = frame.array
             # t = Thread(self.calculate_throttle_and_angle(image), args=())
             # t.daemon = True
