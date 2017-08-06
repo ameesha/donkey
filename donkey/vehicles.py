@@ -95,7 +95,7 @@ class BaseVehicle:
 
             # throttle
             # breaks faster (even tho it can't go backwards)
-            throttle = -1
+            throttle = 0
             if max_area > 0:
                 (x, y), radius = cv2.minEnclosingCircle(best_cnt)
                 center = (int(x), int(y))
