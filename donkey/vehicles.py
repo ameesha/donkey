@@ -69,7 +69,7 @@ class BaseVehicle:
         blur = cv2.blur(image, (5,5))
             
         #pink
-        lower = np.array([21, 11, 60],dtype="uint8")
+        lower = np.array([50, 20, 90],dtype="uint8")
         upper = np.array([165, 88, 225], dtype="uint8")
 
         thresh = cv2.inRange(blur, lower, upper)
