@@ -5,6 +5,7 @@ Class to pull together all parts that operate the vehicle including,
 sensors, actuators, pilots and remotes.
 '''
 
+import cv2
 from random import uniform
 import time
 
@@ -58,7 +59,7 @@ class BaseVehicle:
             print('\n img_arr={}'.format(img_arr))
             angle = uniform(-1, 1)
             # angle = 0
-            throttle = 0
+            throttle = uniform(-1, 1)
             print('\n len(img_arr)={}, len(img_arr[0])={}'.format(len(img_arr), len(img_arr[0])))
 
             self.actuator_mixer.update(throttle, angle)
