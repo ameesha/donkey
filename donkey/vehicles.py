@@ -88,31 +88,31 @@ class BaseVehicle:
             # finding centroids of best_cnt and draw a circle there
             M = cv2.moments(best_cnt)
             cx,cy = int(M['m10']/M['m00']), int(M['m01']/M['m00'])
-            #if best_cnt>1:
             cv2.circle(blur,(cx,cy),10,(0,0,255),-1)
+
+            angle = ((640 - cx) / 640 * 2) - 1
+
+            # throttle
+            throttle = 0
+            if max_area > 0:
+                (x, y), radius = cv2.minEnclosingCircle(best_cnt)
+                center = (int(x), int(y))
+                radius = int(radius)
+                cv2.circle(thresh2, center, radius, (0, 0, 255), 2)
+                print('hello{}{}'.format(center, radius))
+
+            self.actuator_mixer.update(throttle, angle)
+            print('\n CAR: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
+                cx, cy, max_area, angle, throttle), end='')
+
+            cv2.imshow("Frame", blur)
+            cv2.imshow('thresh', thresh2)
             # show the frame
             key = cv2.waitKey(1) & 0xFF
     
             # clear the stream in preparation for the next frame
             rawCapture.truncate(0)
-            angle = 0
-            throttle = 0
 
-            angle = ((640 - cx) / 640 * 2) - 1
-
-            # throttle
-            if max_area > 0:
-                (x, y), radius = cv2.minEnclosingCircle(best_cnt)
-                center = (int(x), int(y))
-                radius = int(radius)
-                cv2.circle(thresh2, center, radius, (0, 255, 0), 2)
-
-            cv2.imshow("Frame", blur)
-            cv2.imshow('thresh', thresh2)
-
-            self.actuator_mixer.update(throttle, angle)
-            print('\n CAR: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
-                cx, cy, max_area, angle, throttle), end='')
         
         # drive loop
         # while True:
