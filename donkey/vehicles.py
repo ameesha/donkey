@@ -54,7 +54,7 @@ class BaseVehicle:
 
     def capture_frame(self):
         # capture frames from the camera
-        for frame in self.camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+        for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             image = frame.array
             t = Thread(self.calculate_throttle_and_angle(), args=(image))
             t.daemon = True
@@ -96,7 +96,7 @@ class BaseVehicle:
 
         # throttle
         # breaks faster (even tho it can't go backwards)
-        throttle = -1
+        throttle = 0
         if max_area > 0:
             (x, y), radius = cv2.minEnclosingCircle(best_cnt)
             center = (int(x), int(y))
