@@ -6,6 +6,7 @@ sensors, actuators, pilots and remotes.
 '''
 
 import cv2
+import numpy as np
 from random import uniform
 import time
 
@@ -56,7 +57,16 @@ class BaseVehicle:
             #     angle, _ = self.pilot.decide(img_arr)
 
             # do some open cv stuff here
+            blur = cv2.blur(image, (5, 5))
+            # pink
+            lower = np.array([160, 30, 100], dtype="unit8")
+            upper = np.array([225, 88, 165], dtype="unit8")
+
+            thresh = cv2.inRange(blur, lower, upper)
+
             print('\n img_arr={}'.format(img_arr))
+            print('\n thresh={}'.format(thresh))
+
             angle = 0
             throttle = 0
             # angle = uniform(-1, 1)
