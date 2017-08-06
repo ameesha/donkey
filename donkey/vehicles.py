@@ -19,13 +19,16 @@ from donkey.remotes import RemoteClient
 from donkey.sensors import PiVideoStream
 from threading import Thread
 
+config = configparser.ConfigParser()
+constants = config['constants']
+
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-camera.resolution = (640, 480)
-camera.framerate = 50
+camera.resolution = (constants.getint('res_length'), constants.getint('res_width'))
+camera.framerate = constants.getint('frame_rate')
 camera.hflip = True
 
-rawCapture = PiRGBArray(camera, size=(640, 480))
+rawCapture = PiRGBArray(camera, size=(constants.getint('res_length'), constants.getint('res_width')))
 
 # allow the camera to warmup
 time.sleep(0.1)
@@ -33,7 +36,7 @@ time.sleep(0.1)
 
 class BaseVehicle:
     def __init__(self,
-                 drive_loop_delay: float=0.5,
+                 drive_loop_delay: constants.getfloat('driver_loop_delay'),
                  camera: PiVideoStream=None,
                  actuator_mixer: PWMSteeringActuator=None,
                  pilot: KerasCategorical=None,
@@ -66,7 +69,7 @@ class BaseVehicle:
             rawCapture.truncate(0)
 
     def calculate_throttle_and_angle(self, image):
-        blur = cv2.blur(image, (5,5))
+        blur = cv2.blur(image, (constants.getint('blur_anchor_x'),constants.getint('blur_anchor_y')))
             
         #pink
         lower = np.array([100, 30, 160],dtype="uint8")
@@ -94,7 +97,7 @@ class BaseVehicle:
         cv2.circle(blur,(cx,cy),10,(0,0,255),-1)
 
         # Note: using blob here
-        angle = ((640 - cx) / 640 * 2) - 1
+        angle = ((constants.getint('angle_blob') - cx) / constants.getint('angle_blob') * 2) - 1
 
         # throttle
         # breaks faster (even tho it can't go backwards)
@@ -109,10 +112,10 @@ class BaseVehicle:
             # If it's too small don't follow
             # If it's too big don't follow
             # Otherwise map to between 0.2 and 0.4 throttle
-            min_radius = 30
-            max_radius = 80
-            min_throttle = 0.3
-            max_throttle = 0.4
+            min_radius = constants.getint('max_radius')
+            max_radius = constants.getint('min_radius')
+            min_throttle = constants.getfloat('min_throttle')
+            max_throttle = constants.getfloat('max_throttle')
             if radius > min_radius and radius < max_radius:
                 throttle = max_throttle - ((max_throttle - min_throttle) * ((radius - min_radius) / (max_radius - min_radius)))
 
