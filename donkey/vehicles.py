@@ -13,7 +13,7 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 from random import uniform
 
-import configparser
+import donkey as dk
 
 from donkey.actuators import PWMSteeringActuator
 from donkey.pilots import KerasCategorical
@@ -21,8 +21,8 @@ from donkey.remotes import RemoteClient
 from donkey.sensors import PiVideoStream
 from threading import Thread
 
-config = configparser.ConfigParser()
-constants = config['constants']
+cfg = dk.config.parse_config('~/mydonkey/vehicle.ini')
+constants = cfg['constants']
 
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
