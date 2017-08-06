@@ -50,7 +50,7 @@ class BaseVehicle:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             count += 1
             now = time.time()
-            millis = int((now - self.start_time) * 1000)
+            millis = int((now - start_time) * 1000)
 
             print('\n got frame, fps={}', count/millis)
             image = frame.array
