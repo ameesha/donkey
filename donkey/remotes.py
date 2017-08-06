@@ -116,29 +116,29 @@ class RemoteClient():
                 }
 
         r = None
-        while r == None:
-            #Try connecting to server until connection is made.
-            start = time.time()
+        # while r == None:
+        #     #Try connecting to server until connection is made.
+        #     start = time.time()
             
-            try:
-                r = self.session.post(self.control_url, 
-                                files={'img': dk.utils.arr_to_binary(img_arr), 
-                                       'json': json.dumps(data)},
-                                       timeout=0.25)
-                self.state['connect_attempts'] = 0
+        #     try:
+        #         r = self.session.post(self.control_url, 
+        #                         files={'img': dk.utils.arr_to_binary(img_arr), 
+        #                                'json': json.dumps(data)},
+        #                                timeout=0.25)
+        #         self.state['connect_attempts'] = 0
             
-            except (requests.ConnectionError) as err:
-                #try to reconnect every 3 seconds
-                print("\n Vehicle could not connect to server. Make sure you've " + 
-                    "started your server and you're referencing the right port.")
-                self.state['connect_attempts'] = self.state['connect_attempts'] + 1
-                # slow it down, so we can try connecting a few times before stopping it
-                return angle, throttle * .8, None
+        #     except (requests.ConnectionError) as err:
+        #         #try to reconnect every 3 seconds
+        #         print("\n Vehicle could not connect to server. Make sure you've " + 
+        #             "started your server and you're referencing the right port.")
+        #         self.state['connect_attempts'] = self.state['connect_attempts'] + 1
+        #         # slow it down, so we can try connecting a few times before stopping it
+        #         return angle, throttle * .8, None
             
-            except (requests.exceptions.ReadTimeout) as err:
-                #Lower throttle if their is a long lag.
-                print("\n Request took too long. Retrying")
-                return angle, throttle * .8, None
+        #     except (requests.exceptions.ReadTimeout) as err:
+        #         #Lower throttle if their is a long lag.
+        #         print("\n Request took too long. Retrying")
+        #         return angle, throttle * .8, None
                 
 
         end = time.time()
@@ -146,10 +146,13 @@ class RemoteClient():
         self.log('{}, {} \n'.format(datetime.now().time() , lag ))
         #print('remote lag: %s' %lag)
 
-        data = json.loads(r.text)
-        angle = float(data['angle'])
-        throttle = float(data['throttle'])
-        drive_mode = str(data['drive_mode'])
+        # data = json.loads(r.text)
+        # angle = float(data['angle'])
+        # throttle = float(data['throttle'])
+        # drive_mode = str(data['drive_mode'])
+        angle = 0
+        throttle = 0
+        drive_mode = "local"
         
         return angle, throttle, drive_mode
 
