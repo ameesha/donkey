@@ -53,7 +53,7 @@ class CameraStream:
             elapsed_ms = int((now - start_time) * 1000)
             self.frame = frame.array
             self.rawCapture.truncate(0)
-            # print('\n got frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
+            print('\n got frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
     
     def read(self):
         return self.frame
