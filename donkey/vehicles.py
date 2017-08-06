@@ -99,13 +99,13 @@ class BaseVehicle:
             rawCapture.truncate(0)
             angle = 0
             throttle = 0
-            # angle = uniform(-1, 1)
+            angle = (cx / 640 * 2) - 1
             # throttle = uniform(-1, 1)
             # print('\n len(img_arr)={}, len(img_arr[0])={}'.format(len(img_arr), len(img_arr[0])))
 
             self.actuator_mixer.update(throttle, angle)
-            print('\n CAR: angle: {:+04.2f}   throttle: {:+04.2f}'.format(
-                angle, throttle), end='')
+            print('\n CAR: cx: {}, cy: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
+                cx, cy, angle, throttle), end='')
         
         # drive loop
         # while True:
