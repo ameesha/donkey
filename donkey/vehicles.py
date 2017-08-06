@@ -50,9 +50,9 @@ class BaseVehicle:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             count += 1
             now = time.time()
-            millis = int((now - start_time) * 1000)
+            elapsed = int((now - start_time) * 1000)
 
-            print('\n got frame, fps={}', count/millis)
+            print('\n got frame, count={}, elapsed={}, fps={}', count, elapsed, count/elapsed)
             image = frame.array
             # t = Thread(self.calculate_throttle_and_angle(image), args=())
             # t.daemon = True
