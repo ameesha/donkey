@@ -141,9 +141,9 @@ class RemoteClient():
         #         return angle, throttle * .8, None
                 
 
-        end = time.time()
-        lag = end-start
-        self.log('{}, {} \n'.format(datetime.now().time() , lag ))
+        # end = time.time()
+        # lag = end-start
+        # self.log('{}, {} \n'.format(datetime.now().time() , lag ))
         #print('remote lag: %s' %lag)
 
         # data = json.loads(r.text)
