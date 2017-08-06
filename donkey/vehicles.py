@@ -154,6 +154,6 @@ class BaseVehicle:
         self.camera.start()
 
         while(True):
-            self.image_processing.start(self.camera.read())
             print('\n Main process loop')
+            self.image_processing.start(self.camera.read())
             time.sleep(0.01)
