@@ -31,7 +31,7 @@ class CameraStream:
         self.camera.framerate = Constants.frame_rate
         self.camera.hflip = True
 
-        self.rawCapture = PiRGBArray(camera, size=(Constants.res_length, Constants.res_width))
+        self.rawCapture = PiRGBArray(self.camera, size=(Constants.res_length, Constants.res_width))
 
         # allow the camera to warmup
         time.sleep(0.1)
