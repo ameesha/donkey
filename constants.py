@@ -4,7 +4,7 @@ class Constants:
     frame_rate=50
     drive_loop_delay=0.5
     closest_area=1000000
-    farthest_area=250000
+    farthest_area=400000
     min_throttle=0.3
     max_throttle=0.4
     angle_blob=640
