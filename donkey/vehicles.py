@@ -97,9 +97,13 @@ class ImageProcessingThread:
 
         (X,Y) = np.meshgrid(x,y)
 
-        cx = int((X*thresh).sum() / thresh.sum())
-        cy = int((Y*thresh).sum() / thresh.sum())
-        max_area = thresh.sum()
+        max_area = 0
+        cx = Constants.angle_blob
+        cy = Constants.angle_blob
+        if thresh.sum() > 0:
+            cx = int((X*thresh).sum() / thresh.sum())
+            cy = int((Y*thresh).sum() / thresh.sum())
+            max_area = thresh.sum()
                         
         cv2.circle(blur,(cx,cy),10,(0,0,255),-1)
 
