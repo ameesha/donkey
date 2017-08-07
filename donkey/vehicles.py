@@ -130,7 +130,7 @@ class ImageProcessingThread:
 
             # 1000000 > x > 250000
             if closest_area > max_area and max_area > farthest_area:
-                throttle = min_throttle
+                throttle = max_throttle
             # if radius > min_radius and radius < max_radius:
             #     throttle = max_throttle - ((max_throttle - min_throttle) * ((radius - min_radius) / (max_radius - min_radius)))
 
