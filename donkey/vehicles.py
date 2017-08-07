@@ -91,23 +91,16 @@ class ImageProcessingThread:
 
         thresh = thresh_light + thresh_dark + thresh_mid + thresh_pink
         thresh2 = thresh.copy()
+        
+        y = range(0, thresh.shape[0])
+        x = range(0, thresh.shape[1])
 
-        # find contours in the threshold image
-        image, contours, hierarchy = cv2.findContours(
-            thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        (X,Y) = np.meshgrid(x,y)
 
-        # finding contour with maximum area and store it as best_cnt
-        max_area = 0
-        best_cnt = 1
-        for cnt in contours:
-                area = cv2.contourArea(cnt)
-                if area > max_area:
-                        max_area = area
-                        best_cnt = cnt
-
-        # finding centroids of best_cnt and draw a circle there
-        M = cv2.moments(best_cnt)
-        cx,cy = int(M['m10']/M['m00']), int(M['m01']/M['m00'])
+        cx = int((X*thresh).sum() / thresh.sum())
+        cy = int((Y*thresh).sum() / thresh.sum())
+        max_area = thresh.sum()
+                        
         cv2.circle(blur,(cx,cy),10,(0,0,255),-1)
 
         # Note: using blob here
