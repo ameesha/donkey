@@ -138,10 +138,10 @@ class ImageProcessingThread:
         print('\r DSP: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
             cx, cy, max_area, angle, throttle), end='')
 
-        cv2.imshow("Frame", blur)
-        cv2.imshow('thresh', thresh2)
+        # cv2.imshow("Frame", blur)
+        # cv2.imshow('thresh', thresh2)
         # show the frame
-        key = cv2.waitKey(1) & 0xFF
+        # key = cv2.waitKey(1) & 0xFF
 
         return
 
