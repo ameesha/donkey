@@ -127,8 +127,8 @@ class ImageProcessingThread:
             max_radius = Constants.min_radius
             min_throttle = Constants.min_throttle
             max_throttle = Constants.max_throttle
-            if radius > min_radius and radius < max_radius:
-                throttle = max_throttle - ((max_throttle - min_throttle) * ((radius - min_radius) / (max_radius - min_radius)))
+            # if radius > min_radius and radius < max_radius:
+            #     throttle = max_throttle - ((max_throttle - min_throttle) * ((radius - min_radius) / (max_radius - min_radius)))
 
         self.actuator_mixer.update(throttle, angle)
         print('\r DSP: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
