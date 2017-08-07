@@ -123,10 +123,14 @@ class ImageProcessingThread:
             # If it's too small don't follow
             # If it's too big don't follow
             # Otherwise map to between 0.2 and 0.4 throttle
-            min_radius = Constants.max_radius
-            max_radius = Constants.min_radius
+            closest_area = Constants.closest_area
+            farthest_area = Constants.farthest_area
             min_throttle = Constants.min_throttle
             max_throttle = Constants.max_throttle
+
+            # 1000000 > x > 250000
+            if closest_area > max_area and max_area > farthest_area:
+                throttle = min_throttle
             # if radius > min_radius and radius < max_radius:
             #     throttle = max_throttle - ((max_throttle - min_throttle) * ((radius - min_radius) / (max_radius - min_radius)))
 
