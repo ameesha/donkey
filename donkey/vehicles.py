@@ -114,10 +114,10 @@ class ImageProcessingThread:
         # breaks faster (even tho it can't go backwards)
         throttle = 0
         if max_area > 0:
-            (x, y), radius = cv2.minEnclosingCircle(best_cnt)
-            center = (int(x), int(y))
-            radius = int(radius)
-            cv2.circle(thresh2, center, radius, (0, 0, 255), 2)
+            # (x, y), radius = cv2.minEnclosingCircle(best_cnt)
+            # center = (int(x), int(y))
+            # radius = int(radius)
+            # cv2.circle(thresh2, center, radius, (0, 0, 255), 2)
 
             # Note: Using circle here
             # If it's too small don't follow
