@@ -53,7 +53,7 @@ class CameraStream:
             elapsed_ms = int((now - start_time) * 1000)
             self.frame = frame.array
             self.rawCapture.truncate(0)
-            print('\n Frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
+            # print('\n Frame, count={}, elapsed_ms={}, fps={}', count, elapsed_ms, 1000 * count/elapsed_ms)
     
     def read(self):
         return self.frame
@@ -134,7 +134,7 @@ class ImageProcessingThread:
                 throttle = max_throttle - ((max_throttle - min_throttle) * ((radius - min_radius) / (max_radius - min_radius)))
 
         self.actuator_mixer.update(throttle, angle)
-        print('\n DSP: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
+        print('\r DSP: cx: {}, cy: {}, max_area: {}, angle: {:+04.2f}, throttle: {:+04.2f}'.format(
             cx, cy, max_area, angle, throttle), end='')
 
         cv2.imshow("Frame", blur)
@@ -156,5 +156,5 @@ class BaseVehicle:
         self.camera.start()
 
         while(True):
-            print('\n Main process loop')
+            # print('\n Main process loop')
             self.image_processing.start(self.camera.read())
